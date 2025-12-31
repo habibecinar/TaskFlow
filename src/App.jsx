@@ -12,6 +12,9 @@ function App() {
         };
         setProjects((prev) => [...prev, newProject]);
     };
+    function deleteProject(id) {
+        setProjects((prev) => prev.filter((project) => project.id !== id));
+    }
     return (
         <div>   
             <h1>Project List</h1>
@@ -19,6 +22,7 @@ function App() {
                 {projects.map((project) => (
                     <li key={project.id}>
                         <h2>{project.name}</h2>
+                      
                     </li>
                 ))}
             </ul>
