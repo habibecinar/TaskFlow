@@ -1,5 +1,6 @@
 import initialProjects from "./data/mockData";
 import { useState } from "react";
+import Project from "./components/Project";
 
 function App() {
     const [projects, setProjects] = useState(initialProjects);
@@ -15,17 +16,43 @@ function App() {
     function deleteProject(id) {
         setProjects((prev) => prev.filter((project) => project.id !== id));
     }
+    
+    function addTask(projectId) {
+        const taskTitle = prompt("Task adı girin:");
+        if (taskTitle) {
+            setProjects((prev) => 
+                prev.map((project) => 
+                    project.id === projectId
+                        ? {
+                            ...project,
+                            tasks: [
+                                ...project.tasks,
+                                {
+                                    id: Date.now(),
+                                    title: taskTitle,
+                                    status: "todo",
+                                    createdAt: new Date().toISOString().split("T")[0]
+                                }
+                            ]
+                        }
+                        : project
+                )
+            );
+        }
+    }
     return (
         <div>   
             <h1>Project List</h1>
-            <ul>
+            <div>
                 {projects.map((project) => (
-                    <li key={project.id}>
-                        <h2>{project.name}</h2>
-                      
-                    </li>
+                    <Project 
+                        key={project.id}
+                        project={project}
+                        deleteProject={deleteProject}
+                        addTask={addTask}
+                    />
                 ))}
-            </ul>
+            </div>
             <button onClick={addProject}>Add Project</button>
         </div>
         

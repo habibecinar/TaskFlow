@@ -1,4 +1,4 @@
-function Project({ project , deleteProject }) {
+function Project({ project , deleteProject, addTask }) {
     return (
         <div>
         <h2>
@@ -13,6 +13,7 @@ function Project({ project , deleteProject }) {
 
             ))}
         </ul>
+        <button onClick={() => addTask(project.id)}>Add Task</button>
     </div>
 );
 }
