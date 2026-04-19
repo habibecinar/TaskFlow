@@ -20,8 +20,8 @@ function App() {
     function addTask(projectId) {
         const taskTitle = prompt("Task adı girin:");
         if (taskTitle) {
-            setProjects((prev) => 
-                prev.map((project) => 
+            setProjects((prev) =>
+                prev.map((project) =>
                     project.id === projectId
                         ? {
                             ...project,
@@ -40,6 +40,19 @@ function App() {
             );
         }
     }
+
+    function deleteTask(projectId, taskId) {
+        setProjects((prev) =>
+            prev.map((project) =>
+                project.id === projectId
+                    ? {
+                        ...project,
+                        tasks: project.tasks.filter((task) => task.id !== taskId)
+                    }
+                    : project
+            )
+        );
+    }
     return (
         <div>   
             <h1>Project List</h1>
@@ -50,12 +63,12 @@ function App() {
                         project={project}
                         deleteProject={deleteProject}
                         addTask={addTask}
+                        deleteTask={deleteTask}
                     />
                 ))}
             </div>
             <button onClick={addProject}>Add Project</button>
         </div>
-        
     );
 }
 export default App;
