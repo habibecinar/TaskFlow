@@ -53,6 +53,27 @@ function App() {
             )
         );
     }
+
+    function updateTaskStatus(projectId, taskId) {
+        const statusOrder = ["todo", "in-progress", "done"];
+        setProjects((prev) =>
+            prev.map((project) =>
+                project.id === projectId
+                    ? {
+                        ...project,
+                        tasks: project.tasks.map((task) =>
+                            task.id === taskId
+                                ? {
+                                    ...task,
+                                    status: statusOrder[(statusOrder.indexOf(task.status) + 1) % statusOrder.length]
+                                }
+                                : task
+                        )
+                    }
+                    : project
+            )
+        );
+    }
     return (
         <div>   
             <h1>Project List</h1>
@@ -64,6 +85,7 @@ function App() {
                         deleteProject={deleteProject}
                         addTask={addTask}
                         deleteTask={deleteTask}
+                        updateTaskStatus={updateTaskStatus}
                     />
                 ))}
             </div>

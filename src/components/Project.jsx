@@ -1,4 +1,4 @@
-function Project({ project, deleteProject, addTask, deleteTask }) {
+function Project({ project, deleteProject, addTask, deleteTask, updateTaskStatus }) {
     return (
         <div>
             <h2>
@@ -10,6 +10,7 @@ function Project({ project, deleteProject, addTask, deleteTask }) {
                     <li key={task.id}>
                         {task.title} - {task.status}
                         <button style={{marginLeft: '10px'}} onClick={() => deleteTask(project.id, task.id)}>Sil</button>
+                        <button style={{marginLeft: '10px'}} onClick={() => updateTaskStatus(project.id, task.id)}>Durumu Değiştir</button>
                     </li>
                 ))}
             </ul>
